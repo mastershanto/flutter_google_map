@@ -14,7 +14,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   Location location= Location();
 
-  late LocationData? currentLocation;
+  LocationData? currentLocation;
 
   @override
   Widget build(BuildContext context) {
