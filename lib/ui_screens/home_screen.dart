@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_google_map/data/lat_lng_data.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,6 +11,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  late GoogleMapController googleMapController;
+  Location location = Location();
+
+  late final LocationData locationData;
+
+  Future<void> getCurrentLocation() async {
+    locationData = await location.getLocation();
+    // googleMapController.moveCamera(
+    //   CameraUpdate.newCameraPosition(
+    //     CameraPosition(
+    //       target: LatLng(locationData.longitude!, locationData.longitude!),
+    //     ),
+    //   ),
+    // );
+
+    googleMapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng(locationData.longitude!, locationData.longitude!),
+        zoom: 17
+    ),));
+    if (mounted) {
+      setState(() {
+
+      });
+    }
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -17,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
           title: const Text("Flutter App with Google Map"),
         ),
         body: GoogleMap(
-          initialCameraPosition: const CameraPosition(
-            target: LatLng(23.87540384373909, 90.39106244138632),
+          initialCameraPosition: CameraPosition(
+            target: cameraTarget,
             zoom: 17,
             bearing: 5,
             tilt: 5,
@@ -32,6 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
           onCameraMove: (cameraPosition) {
             print(cameraPosition);
           },
+
+          onMapCreated: (GoogleMapController controller) {
+            googleMapController = controller;
+            getCurrentLocation();
+          },
+
           zoomControlsEnabled: false,
           zoomGesturesEnabled: false,
           compassEnabled: false,
@@ -40,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
           markers: {
             Marker(
               markerId: const MarkerId("Initial Position"),
-              position: const LatLng(23.874565691548938, 90.39105165708051),
+              position: markerOne,
               icon: BitmapDescriptor.defaultMarkerWithHue(
                   BitmapDescriptor.hueYellow),
               infoWindow: const InfoWindow(
@@ -61,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Marker(
               markerId: const MarkerId("Initial Position"),
-              position: const LatLng(23.874447353830963, 90.39064933420146),
+              position: markerTwo,
               icon: BitmapDescriptor.defaultMarkerWithHue(
                   BitmapDescriptor.hueGreen),
               infoWindow: const InfoWindow(
@@ -82,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Marker(
               markerId: const MarkerId("Initial Position"),
-              position: const LatLng(23.874161730520402, 90.39064542983508),
+              position: markerThree,
               icon: BitmapDescriptor.defaultMarkerWithHue(
                   BitmapDescriptor.hueBlue),
               infoWindow: const InfoWindow(
@@ -104,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           polylines: {
             Polyline(
-              polylineId: const PolylineId("1st line"),
+              polylineId: const PolylineId("triangle by polyline"),
               color: Colors.red,
               width: 6,
               visible: true,
@@ -117,17 +154,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 PatternItem.dash(10),
               ],
               points: [
-                const LatLng(23.87777611829549, 90.39214164018631),
-                const LatLng(23.875073585712567, 90.38890488445759),
-                const LatLng(23.872455922937064, 90.39185933768749),
-                const LatLng(23.872455922937064, 90.39185933768749),
-                const LatLng(23.87777611829549, 90.39214164018631),
-              ],
+                polylineOneOne,
+                polylineOneTwo,
+                polylineOneThree,
+                polylineOneThree,
+                polylineOneFour
+                 ],
             ),
           },
           polygons: {
             Polygon(
-              polygonId: PolygonId("1st Polygon"),
+              polygonId: const PolygonId("1st Polygon"),
               fillColor: Colors.transparent,
               strokeColor: Colors.blue,
               strokeWidth: 4,
@@ -138,18 +175,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 print("You have tapped on my area");
               },
               points: [
-                LatLng(23.875315175720445, 90.39019301533699),
-                LatLng(23.875895541752076, 90.39099030196667),
-                LatLng(23.8753295852625, 90.39174433797598),
-                LatLng(23.874212381115097, 90.39160050451756),
-                LatLng(23.873828531581026, 90.39068754762411),
+                polylineTwoOne,
+                polylineTwoTwo,
+                polylineTwoThree,
+                polylineTwoThree,
+                polylineTwoFour,
               ],
             ),
           },
           circles: {
             Circle(
-              circleId: CircleId("1st Circle"),
-              center: LatLng(23.872350761567404, 90.38974609225988),
+              circleId: const CircleId("1st Circle"),
+              center: circleOne,
               radius: 100,
               fillColor: Colors.pink.shade700,
               strokeColor: Colors.green,
@@ -160,8 +197,8 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             Circle(
-              circleId: CircleId("1st Circle"),
-              center: LatLng(23.872350761567404, 90.38974609225988),
+              circleId: const CircleId("2nd Circle"),
+              center: circleTwo,
               radius: 75,
               fillColor: Colors.blue,
               strokeColor: Colors.green,
@@ -172,8 +209,8 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             Circle(
-              circleId: CircleId("1st Circle"),
-              center: LatLng(23.872350761567404, 90.38974609225988),
+              circleId: const CircleId("3rd Circle"),
+              center: circleThree,
               radius: 50,
               fillColor: Colors.yellow,
               strokeColor: Colors.green,
