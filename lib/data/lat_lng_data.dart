@@ -1,6 +1,11 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+// var primaryLat=23.87540384373909;
+// var primaryLng=90.39106244138632;
 
-LatLng cameraTarget = const LatLng(23.87540384373909, 90.39106244138632);
+var primaryLat=23.87567373621851;
+var primaryLng=90.39090824856558;
+
+LatLng cameraTarget =  LatLng(primaryLat, primaryLng);
 
 LatLng markerOne = const LatLng(23.874565691548938, 90.39105165708051);
 LatLng markerTwo = const LatLng(23.874447353830963, 90.39064933420146);

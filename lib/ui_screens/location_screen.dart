@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_google_map/ui_screens/home_screen.dart';
+import 'package:flutter_google_map/ui_screens/real_time_location_screen.dart';
 import 'package:location/location.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -96,7 +97,16 @@ class _LocationScreenState extends State<LocationScreen> {
                 }, child: const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text("Google Map",style: TextStyle(fontSize: 30),),
-                ))
+                )),
+
+                const SizedBox(height: 16,),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const RealTimeLocationScreen()));
+                    }, child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("Real Time Location Screen",style: TextStyle(fontSize: 30),),
+                )),
 
               ],
             ),
