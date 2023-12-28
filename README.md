@@ -1,7 +1,7 @@
 # Flutter_Assignment_Module-17
 # -by "Ajijul Hoque (Shanto)"
 master branch- flutter_google_map,
-"This project is an assingment project for Module-8, Flutter Batch-4, ostad.app"
+"This project is an assingment project for Module-17, Flutter Batch-4, ostad.app"
 # OUTPUT
 <img width="232" alt="flutter_assignment_m17_img1" src="https://github.com/mastershanto/flutter_google_map/assets/57057476/df16ebbb-b026-40d0-89ce-ea8a7d6a4812">
 <img width="204" alt="flutter_assignment_m17_img2" src="https://github.com/mastershanto/flutter_google_map/assets/57057476/5428195a-f006-46a7-b47c-bce7609948de">
